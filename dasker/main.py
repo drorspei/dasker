@@ -28,7 +28,6 @@ def get_client():
     """Get global client using environment variable if possible, otherwise use default"""
     from dask.distributed import Client, get_client
     s = os.getenv(DASK_SCHEDULER)
-    print(f"getclient {s}")
     if s is not None:
         return Client(s)
     try:
@@ -50,7 +49,6 @@ def main():
         from dask.distributed import Client
         client = Client(**json.loads(sys.argv[1 + int(forcenew)]))
         os.putenv(DASK_SCHEDULER, client.scheduler.address)
-        print(f"sched {client.scheduler.address}")
     else:
         client = contextmanager(lambda: (yield))()
         
